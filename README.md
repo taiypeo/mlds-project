@@ -12,7 +12,32 @@
 получает список ссылок каждой статьи. Для каждой ссылки с помощью того же API получается список ее ссылок (не рассматриваем новые статьи, иначе будет слишком много).
 В итоге получаются файлы:
 
-- graph.json -- граф цитирований рассмотренных статей
-- papers.json -- информация про статьи (название, абстракт, год, Semantic Scholar ID)
-- unique_original_ids.json -- список Semantic Scholar ID исходных статей с arXiv
-- paper_references_cleaned.json -- вспомогательный файл, используемый для генерации остальных
+- graph.json -- граф цитирований рассмотренных статей. Формат:
+  ```
+  {
+    "semantic_scholar_id_1": ["semantic_scholar_id_2", "semantic_scholar_id_3", ...],
+    "semantic_scholar_id_2": ["semantic_scholar_id_3", ...],
+    ...
+  }
+  ```
+- papers.json -- информация про статьи (название, абстракт, год, Semantic Scholar ID). Формат:
+  ```
+  {
+    "semantic_scholar_id_1": {
+      "paperId": "semantic_scholar_id_1",
+      "title": "title_1",
+      "abstract": "abstract_1",
+      "year": 2023
+    },
+    ...
+  }
+  ```
+- unique_original_ids.json -- список Semantic Scholar ID исходных статей с arXiv 2023 года. Формат:
+  ```
+  [
+    "semantic_scholar_id_1",
+    "semantic_scholar_id_2",
+    ...
+  ]
+  ```
+- paper_references_cleaned.json -- вспомогательный файл, используемый для генерации остальных. Не будет дальше использоваться, сохранялся на всякий случай как промежуточное состояние.
