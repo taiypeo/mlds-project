@@ -2,6 +2,8 @@
 
 Автор: Лысенко Иван, МОВС 1 курс
 
+Куратор: Кофанова Мария
+
 ## Данные
 
 [Данные](https://drive.google.com/drive/folders/1zg6rsWlvxnA1wh6EmV5fV6spjjxkb7tF?usp=sharing) были собраны с помощью [ноутбука в Kaggle](https://www.kaggle.com/code/taiypeo/arxiv-pda/notebook).
