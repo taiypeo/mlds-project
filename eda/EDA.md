@@ -29,6 +29,8 @@
 Для визуализации я применил метод [UMAP](https://umap-learn.readthedocs.io/en/latest/). Матрицу размера `n_nodes x 30` я преобразовал в матрицу
 размера `n_nodes x 2` и нарисовал с помощью matplotlib.
 
+![image](https://github.com/taiypeo/mlds-project/assets/4065977/7267011b-eaaa-4fad-9fb2-2b4b3fed9f36)
+
 На визуализации сложно выделить конкретные кластеры (кроме нескольки достаточно четких маленьких и одного большого), причем после k-means
 кластеры довольно сильно могут пересекаться.
 
@@ -39,6 +41,30 @@
 Далее я склеил поля title и abstract для статей и с помощью библиотеки nltk убрал стоп-слова и токены, содержащие символы, не являющиеся буквами, а также применил
 лемматизацию WordNet. Над полученными текстами с помощью библиотеки [wordcloud](https://pypi.org/project/wordcloud/) я построил облака слов с целью выделить ключевые слова
 каждого полученного кластера. Но и здесь ключевые слова довольно сильно пересекаются, поэтому сложно выделить конкретные тематики отдельных кластеров.
+
+- Кластер 0:
+![image](https://github.com/taiypeo/mlds-project/assets/4065977/33067a39-be7b-42fc-a324-9ad2994550d5)
+
+- Кластер 1:
+![image](https://github.com/taiypeo/mlds-project/assets/4065977/b5300478-b147-4026-a720-f2cd542f7495)
+
+- Кластер 2:
+![image](https://github.com/taiypeo/mlds-project/assets/4065977/18026605-a998-462e-8bc0-1f00ff4b7263)
+
+- Кластер 3:
+![image](https://github.com/taiypeo/mlds-project/assets/4065977/e993be68-b2d7-46e2-8e13-3236524b03af)
+
+- Кластер 4:
+![image](https://github.com/taiypeo/mlds-project/assets/4065977/cff5e706-fab6-41b6-8925-0a942c95abe8)
+
+- Кластер 5:
+![image](https://github.com/taiypeo/mlds-project/assets/4065977/7f866775-5ff3-42f8-b816-6854b6da81a1)
+
+- Кластер 6:
+![image](https://github.com/taiypeo/mlds-project/assets/4065977/61bd5400-67a2-4a17-a102-81663a1db816)
+
+- Кластер 7:
+![image](https://github.com/taiypeo/mlds-project/assets/4065977/fd250b20-d92f-4fff-88e6-81b45c029d48)
 
 ## Дополнительные эксперименты
 Я также пробовал применить методы DBSCAN и HDBSCAN для кластеризации, а также t-SNE для визуализации, но они либо показывали очень плохие результаты, либо работали слишком долго
