@@ -1,6 +1,6 @@
 # Разведочный анализ данных
 
-Ноутбук для EDA лежит на [Kaggle](https://www.kaggle.com/taiypeo/spectral-clustering) и в Google Drive.
+Ноутбук для EDA лежит на [Kaggle](https://www.kaggle.com/taiypeo/spectral-clustering) и в [Google Drive](https://drive.google.com/drive/folders/1SR5fG8jRxC1KqRkRZqSeVdjtnNRhrcHJ?usp=drive_link).
 
 ## Loading and cleaning the graph
 В данной части я загрузил граф из файла graph.json с помощью библиотеки NetworkX и убрал из него те вершины, которых нет в файле papers.json.
