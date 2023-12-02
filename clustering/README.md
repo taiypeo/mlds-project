@@ -1,7 +1,8 @@
 # Результаты кластеризации
 
 ## Спектральная кластеризация
-Результаты по спектральной кластеризации можно найти в папке [eda/](https://github.com/taiypeo/mlds-project/tree/main/eda)
+Результаты по спектральной кластеризации можно найти в папке [eda/](https://github.com/taiypeo/mlds-project/tree/main/eda).
+Кластеры получились плохие и неинтерпретируемые.
 
 ## LDA
 Ноутбук для LDA лежит на [Kaggle](https://www.kaggle.com/code/taiypeo/arxiv-lda/notebook). Результаты кластеризации по темам
