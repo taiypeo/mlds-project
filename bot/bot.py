@@ -15,7 +15,8 @@ LAST_RATING = "last_rating"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
-        chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!"
+        chat_id=update.effective_chat.id,
+        text="MLDS paper analysis project bot. Type /help for commands list.",
     )
 
 
@@ -72,6 +73,16 @@ async def rate_bot(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
 
 
+async def get_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    HELP_TEXT = """
+/start -- start the bot
+/help -- show this message
+/rate_bot <NUMBER 1-5> -- rate the bot
+/get_avg_rating -- get the average rating of the bot
+"""
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=HELP_TEXT)
+
+
 if __name__ == "__main__":
     token = sys.argv[1]
     application = ApplicationBuilder().token(token).build()
@@ -79,5 +90,6 @@ if __name__ == "__main__":
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("get_avg_rating", get_avg_rating))
     application.add_handler(CommandHandler("rate_bot", rate_bot))
+    application.add_handler(CommandHandler("help", get_help))
 
     application.run_polling()
