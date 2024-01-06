@@ -1,8 +1,13 @@
 import logging
 import sys
 
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.ext import (
+    ApplicationBuilder,
+    CallbackQueryHandler,
+    CommandHandler,
+    ContextTypes,
+)
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -31,27 +36,29 @@ async def get_avg_rating(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def rate_bot(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    ERROR_TEXT = "Invalid command format. Use /rate_bot <NUMBER 1-5>"
+    keyboard = [
+        [
+            InlineKeyboardButton("1️⃣", callback_data="1"),
+            InlineKeyboardButton("2️⃣", callback_data="2"),
+            InlineKeyboardButton("3️⃣", callback_data="3"),
+            InlineKeyboardButton("4️⃣", callback_data="4"),
+            InlineKeyboardButton("5️⃣", callback_data="5"),
+        ],
+    ]
 
-    if len(context.args) != 1:
-        await context.bot.send_message(
-            chat_id=update.effective_chat.id, text=ERROR_TEXT
-        )
-        return
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text="Please choose:",
+        reply_markup=reply_markup,
+    )
 
-    try:
-        rating = int(context.args[0])
-    except ValueError:
-        await context.bot.send_message(
-            chat_id=update.effective_chat.id, text=ERROR_TEXT
-        )
-        return
 
-    if rating < 1 or rating > 5:
-        await context.bot.send_message(
-            chat_id=update.effective_chat.id, text=ERROR_TEXT
-        )
+async def save_rating(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
 
+    rating = int(query.data)
     if LAST_RATING in context.user_data:
         text = f"Updated your rating to {rating}!"
         context.bot_data[RATINGS_SUM] -= context.user_data[LAST_RATING]
@@ -70,7 +77,7 @@ async def rate_bot(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     context.user_data[LAST_RATING] = rating
 
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
+    await query.edit_message_text(text=text)
 
 
 async def get_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -90,6 +97,7 @@ if __name__ == "__main__":
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("get_avg_rating", get_avg_rating))
     application.add_handler(CommandHandler("rate_bot", rate_bot))
+    application.add_handler(CallbackQueryHandler(save_rating))
     application.add_handler(CommandHandler("help", get_help))
 
     application.run_polling()
