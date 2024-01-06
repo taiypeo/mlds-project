@@ -90,6 +90,14 @@ async def get_random_papers(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 
+async def show_papers(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+
+    cluster = int(query.data[len(CLUSTER_PREFIX) :])
+    await query.edit_message_text(text=f"Selected cluster: {cluster}")
+
+
 async def get_avg_rating(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if RATINGS_NUM not in context.bot_data or RATINGS_SUM not in context.bot_data:
         text = "Nobody has rated the bot yet!"
@@ -167,6 +175,9 @@ if __name__ == "__main__":
         CallbackQueryHandler(save_rating, pattern="^" + RATING_PREFIX)
     )
     application.add_handler(CommandHandler("get_random_papers", get_random_papers))
+    application.add_handler(
+        CallbackQueryHandler(show_papers, pattern="^" + CLUSTER_PREFIX)
+    )
     application.add_handler(CommandHandler("help", get_help))
 
     application.run_polling()
