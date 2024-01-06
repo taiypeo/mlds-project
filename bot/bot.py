@@ -163,7 +163,9 @@ if __name__ == "__main__":
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("get_avg_rating", get_avg_rating))
     application.add_handler(CommandHandler("rate_bot", rate_bot))
-    application.add_handler(CallbackQueryHandler(save_rating))
+    application.add_handler(
+        CallbackQueryHandler(save_rating, pattern="^" + RATING_PREFIX)
+    )
     application.add_handler(CommandHandler("get_random_papers", get_random_papers))
     application.add_handler(CommandHandler("help", get_help))
 
