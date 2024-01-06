@@ -1,8 +1,10 @@
 import logging
 import sys
 
+import pandas as pd
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import (
+    Application,
     ApplicationBuilder,
     CallbackQueryHandler,
     CommandHandler,
@@ -16,18 +18,39 @@ logging.basicConfig(
 RATINGS_SUM = "ratings_sum"
 RATINGS_NUM = "ratings_num"
 LAST_RATING = "last_rating"
+DATA = "df"
 RATING_PREFIX = "rating_"
 CLUSTER_PREFIX = "cluster_"
 
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def format_random_papers(df: pd.DataFrame, cluster: int, count: int = 5) -> list[str]:
+    df = (
+        df[df["cluster"] == cluster]
+        .sample(n=count, replace=False)
+        .reset_index(drop=True)
+    )
+    descriptions = []
+    for i, row in df.iterrows():
+        semantic_scholar_url = f"https://www.semanticscholar.org/paper/{row['paperId']}"
+        descriptions.append(
+            f"{i + 1}. {row['title']}, {row['year']}\n\n{row['abstract']}\n\n{semantic_scholar_url}"
+        )
+
+    return descriptions
+
+
+async def post_init(application: Application, csv_path: str) -> None:
+    application.bot_data[DATA] = pd.read_csv(csv_path)
+
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text="MLDS paper analysis project bot. Type /help for commands list.",
     )
 
 
-async def get_random_papers(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def get_random_papers(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     keyboard = [
         [
             InlineKeyboardButton(
@@ -90,15 +113,20 @@ async def get_random_papers(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 
-async def show_papers(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def show_papers(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.callback_query
     await query.answer()
 
     cluster = int(query.data[len(CLUSTER_PREFIX) :])
-    await query.edit_message_text(text=f"Selected cluster: {cluster}")
+
+    messages = format_random_papers(df=context.bot_data[DATA], cluster=cluster)
+    intro = f"{len(messages)} random papers from cluster #{cluster}:"
+    await query.edit_message_text(text=intro)
+    for msg in messages:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=msg)
 
 
-async def get_avg_rating(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def get_avg_rating(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if RATINGS_NUM not in context.bot_data or RATINGS_SUM not in context.bot_data:
         text = "Nobody has rated the bot yet!"
     else:
@@ -108,7 +136,7 @@ async def get_avg_rating(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
 
 
-async def rate_bot(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def rate_bot(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     keyboard = [
         [
             InlineKeyboardButton("1️⃣", callback_data=RATING_PREFIX + "1"),
@@ -127,7 +155,7 @@ async def rate_bot(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 
-async def save_rating(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def save_rating(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.callback_query
     await query.answer()
 
@@ -153,7 +181,7 @@ async def save_rating(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.edit_message_text(text=text)
 
 
-async def get_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def get_help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     HELP_TEXT = """
 /start -- start the bot
 /help -- show this message
@@ -165,8 +193,17 @@ async def get_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        raise ValueError("Usage: python bot.py <TELEGRAM_TOKEN> <CLUSTERED_DATA_PATH>")
+
     token = sys.argv[1]
-    application = ApplicationBuilder().token(token).build()
+    data_path = sys.argv[2]
+    application = (
+        ApplicationBuilder()
+        .token(token)
+        .post_init(lambda app: post_init(app, data_path))
+        .build()
+    )
 
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("get_avg_rating", get_avg_rating))
