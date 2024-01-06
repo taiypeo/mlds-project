@@ -126,12 +126,23 @@ async def show_papers(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         await context.bot.send_message(chat_id=update.effective_chat.id, text=msg)
 
 
+async def get_paper_stats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    df: pd.DataFrame = context.bot_data[DATA]
+    text = f"Total papers: {len(df)}\n\n" + "\n".join(
+        [
+            f"Cluster #{i} size: {count} ({count / len(df) * 100.:.2f}%)"
+            for i, count in df["cluster"].value_counts().sort_index().items()
+        ]
+    )
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
+
+
 async def get_avg_rating(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if RATINGS_NUM not in context.bot_data or RATINGS_SUM not in context.bot_data:
         text = "Nobody has rated the bot yet!"
     else:
         avg_rating = context.bot_data[RATINGS_SUM] / context.bot_data[RATINGS_NUM]
-        text = f"Current average bot rating: {avg_rating}"
+        text = f"Current average bot rating: {avg_rating:.2f}"
 
     await context.bot.send_message(chat_id=update.effective_chat.id, text=text)
 
@@ -186,6 +197,7 @@ async def get_help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 /start -- start the bot
 /help -- show this message
 /get_random_papers -- get random papers from a cluster
+/get_paper_stats -- get statistics about the papers
 /rate_bot -- rate the bot
 /get_avg_rating -- get the average rating of the bot
 """
@@ -215,6 +227,7 @@ if __name__ == "__main__":
     application.add_handler(
         CallbackQueryHandler(show_papers, pattern="^" + CLUSTER_PREFIX)
     )
+    application.add_handler(CommandHandler("get_paper_stats", get_paper_stats))
     application.add_handler(CommandHandler("help", get_help))
 
     application.run_polling()
