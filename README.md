@@ -4,6 +4,9 @@
 
 Куратор: Кофанова Мария
 
+## Бот
+Код бота Телеграм, а также GIF с примером работы находятся в папке [bot/](https://github.com/taiypeo/mlds-project/tree/main/bot).
+
 ## Данные
 
 [Данные](https://drive.google.com/drive/folders/1zg6rsWlvxnA1wh6EmV5fV6spjjxkb7tF?usp=sharing) были собраны с помощью [ноутбука в Kaggle](https://www.kaggle.com/code/taiypeo/arxiv-pda/notebook).
