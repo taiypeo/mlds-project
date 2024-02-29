@@ -5,10 +5,11 @@
 Куратор: Кофанова Мария
 
 ## Чекпоинт 5
-- Результаты экспериментов описаны в папке [clustering/](https://github.com/taiypeo/mlds-project/tree/main/clustering).
-  Вместо презентации я подробно описал все в README.md.
+- Презентация к чекпоинту лежит в корне репозитория [тут](https://github.com/taiypeo/mlds-project/blob/main/checkpoint5-presentation.pdf)
+- В дополнение к презентации, результаты экспериментов описаны в папке [clustering/](https://github.com/taiypeo/mlds-project/tree/main/clustering) в README
 - Ноутбук для обработки данных на [Kaggle](https://www.kaggle.com/code/taiypeo/arxiv-pda/notebook)
 - Ноутбук для лучшей модели [LDA](https://www.kaggle.com/code/taiypeo/arxiv-lda/notebook)
+- Про бот Telegram написано в следующем разделе
 
 ## Бот
 Код бота Телеграм, а также GIF с примером работы находятся в папке [bot/](https://github.com/taiypeo/mlds-project/tree/main/bot).
