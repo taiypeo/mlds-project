@@ -7,7 +7,6 @@
 1. Скачиваем файл с данными (https://www.kaggle.com/code/taiypeo/arxiv-lda/output?select=clustered_orig.csv)
 2. `docker build --tag=arxiv-project-backend .`
 
-
 ## Как запустить контейнер
 ```bash
 docker run -itd -p 80:80 arxiv-project-backend
