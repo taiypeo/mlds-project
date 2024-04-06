@@ -29,6 +29,15 @@ Telegram бот ходит в HTTP сервер для получения дан
 - .env
 - docker-compose.yml
 
+## Как запустить тесты
+```bash
+cd http_server
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+pytest -v
+```
+
 ## Используемые Docker образы
 
 Также лежит в [used_docker_images.md](https://github.com/taiypeo/mlds-project/tree/main/service/used_docker_images.md).
