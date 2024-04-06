@@ -1,0 +1,2 @@
+- bot/ -- https://hub.docker.com/r/taiypeo/mlds-project-bot
+- http_server/ -- https://hub.docker.com/r/taiypeo/mlds-project-backend

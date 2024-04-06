@@ -4,15 +4,51 @@
 
 Куратор: Кофанова Мария
 
+![GIF с примером работы](https://github.com/taiypeo/mlds-project/assets/4065977/ce6407bf-4ef0-41bf-ab25-507e7ad2d894)
+
+## Структура проекта
+```bash
+.
+├── checkpoint5-presentation.pdf  (презентация к 5 чекпоинту)
+├── clustering  (описание результатов экспериментов)
+│   └── README.md
+├── data  (описание результатов генерации графа цитирований)
+│   ├── arxiv-pda.ipynb  (ноутбук для генерации графа цитирований)
+│   └── README.md  (Markdown файл с ссылкой на полученный граф)
+├── eda  (описание результатов разведочного анализа данных)
+│   └── EDA.md
+├── LICENSE  (лицензия проекта)
+├── midterm-defense-presentation.pdf  (презентация к предзащите)
+├── README.md  (общая документация по проекту)
+└── service  (код для сервиса)
+    ├── bot  (код для Telegram бота)
+    │   ├── bot.py
+    │   ├── Dockerfile
+    │   ├── README.md
+    │   └── requirements.txt
+    ├── docker-compose.yml  (Docker Compose файл для запуска проекта)
+    ├── http_server  (код для бекенда)
+    │   ├── Dockerfile
+    │   ├── main.py
+    │   ├── README.md
+    │   └── requirements.txt
+    ├── README.md  (описание сервиса)
+    └── used_docker_images.md  (используемые Docker образы)
+```
+
+## Бот
+Код бота Телеграм и бекенда для него, описание функционала, инструкции по запуску и
+ссылки на Docker Hub для использованных образов находятся в
+папке [service/](https://github.com/taiypeo/mlds-project/tree/main/service).
+
+Также список используемых Docker образов лежит в файле [service/used_docker_images.md](https://github.com/taiypeo/mlds-project/tree/main/service/used_docker_images.md).
+
 ## Чекпоинт 5
 - Презентация к чекпоинту лежит в корне репозитория [тут](https://github.com/taiypeo/mlds-project/blob/main/checkpoint5-presentation.pdf)
 - В дополнение к презентации, результаты экспериментов описаны в папке [clustering/](https://github.com/taiypeo/mlds-project/tree/main/clustering) в README
 - Ноутбук для обработки данных на [Kaggle](https://www.kaggle.com/code/taiypeo/arxiv-pda/notebook)
 - Ноутбук для лучшей модели [LDA](https://www.kaggle.com/code/taiypeo/arxiv-lda/notebook)
-- Про бот Telegram написано в следующем разделе
-
-## Бот
-Код бота Телеграм, а также GIF с примером работы находятся в папке [bot/](https://github.com/taiypeo/mlds-project/tree/main/bot).
+- Про бот Telegram написано в предыдущем разделе
 
 ## Данные
 
