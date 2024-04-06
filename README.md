@@ -31,14 +31,16 @@
     │   ├── Dockerfile
     │   ├── main.py
     │   ├── README.md
-    │   └── requirements.txt
+    │   ├── requirements.txt
+    │   └── tests  (тесты)
+    │       └── test_http_server.py
     ├── README.md  (описание сервиса)
     └── used_docker_images.md  (используемые Docker образы)
 ```
 
 ## Бот
-Код бота Телеграм и бекенда для него, описание функционала, инструкции по запуску и
-ссылки на Docker Hub для использованных образов находятся в
+Код бота Телеграм и бекенда для него, описание функционала, инструкции по запуску и тестированию,
+а также ссылки на Docker Hub для использованных образов находятся в
 папке [service/](https://github.com/taiypeo/mlds-project/tree/main/service).
 
 Также список используемых Docker образов лежит в файле [service/used_docker_images.md](https://github.com/taiypeo/mlds-project/tree/main/service/used_docker_images.md).

@@ -30,6 +30,7 @@ Telegram бот ходит в HTTP сервер для получения дан
 - docker-compose.yml
 
 ## Как запустить тесты
+
 ```bash
 cd http_server
 python -m venv .venv
