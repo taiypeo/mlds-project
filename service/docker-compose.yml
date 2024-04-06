@@ -1,12 +1,12 @@
 services:
   backend:
-    build: http_server
+    image: taiypeo/mlds-project-backend:latest
     environment:
       - CLUSTERED_DATA_PATH=/app/clustered_orig.csv
     volumes:
       - ./clustered_orig.csv:/app/clustered_orig.csv
   tg_bot:
-    build: bot
+    image: taiypeo/mlds-project-bot:latest
     env_file:
       - path: ./.env
         required: true
