@@ -39,6 +39,9 @@
     └── used_docker_images.md  (используемые Docker образы)
 ```
 
+## Чекпоинт 7
+Эксперименты, связанные с глубинным обучением описаны в конце [clustering/README.md](https://github.com/taiypeo/mlds-project/blob/main/clustering/README.md#sentence-bert--k-meansdbscan).
+
 ## Бот
 Код бота Телеграм и бекенда для него, описание функционала, инструкции по запуску и тестированию,
 а также ссылки на Docker Hub для использованных образов находятся в
