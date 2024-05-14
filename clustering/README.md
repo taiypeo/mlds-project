@@ -124,7 +124,7 @@ https://www.kaggle.com/code/taiypeo/arxiv-bert
 Из своего [графа](https://github.com/taiypeo/mlds-project/tree/main/data) я взял только статьи 2023 года с arXiv (те, с которых начиналась сборка графа). Предобработка данных заключалась в склеивании текста и абстракта статей через токен `[SEP]`.
 
 Эксперименты я проводил с двумя моделями:
-- [allenai-specter](https://www.sbert.net/docs/pretrained_models.html#scientific-publications) - модель, специально предобученная на задачу semantic search между научными публикациями
+- [allenai-specter](https://www.sbert.net/docs/pretrained_models.html#scientific-publications) - модель, специально предобученная на задачу semantic search между научными публикациями.
 
 Распределение 10 K-Means кластеров в пространстве эмбеддингов (понижение размерности через t-sne):
 ![image](https://github.com/taiypeo/mlds-project/assets/4065977/b8381c85-9d88-414f-bc7e-e0dbd961c1ee)
@@ -138,4 +138,4 @@ https://www.kaggle.com/code/taiypeo/arxiv-bert
 
 Вероятно, Sentence-BERT слишком много внимания обращает на нюансы в статьях, и из-за этого пригоден только для получения малого количества близких к данной статей, а не для задачи кластеризации всех статей на отдельные темы.
 
-Учитывая вышесказанное, я прихожу к выводу, что, к сожалению, эксперименты с Sentence-BERT оказались неудачными.
+Учитывая вышесказанное, я прихожу к выводу, что, к сожалению, эксперименты с Sentence-BERT оказались неудачными, и результаты с простым LDA значительно превосходят их по качеству.
