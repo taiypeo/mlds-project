@@ -20,6 +20,7 @@
 │   └── EDA.md
 ├── LICENSE  (лицензия проекта)
 ├── midterm-defense-presentation.pdf  (презентация к предзащите)
+├── mlds_project_presentation_final.pdf  (презентация к защите)
 ├── README.md  (общая документация по проекту)
 └── service  (код для сервиса)
     ├── bot  (код для Telegram бота)
